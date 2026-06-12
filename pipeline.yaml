@@ -1,19 +1,12 @@
-apiVersion: tekton.dev/v1beta1
-kind: PipelineRun
-metadata:
-  name: tax-calculator-pipeline-run
-spec:
-  pipelineRef:
-    name: tax-calculator-pipeline
-  params:
-    - name: repo-url
-      value: https://github.com/muhammadachar-435/tax-calculator
-    - name: branch
-      value: main
-  workspaces:
-    - name: source
-      persistentVolumeClaim:
-        claimName: tekton-workspace
-    - name: npm-cache
-      persistentVolumeClaim:
-        claimName: npm-cache
+tasks:
+  - name: npminstall
+    taskRef:
+      name: npminstall
+
+  - name: tests
+    taskRef:
+      name: tests
+
+  - name: build
+    taskRef:
+      name: build
